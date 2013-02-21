@@ -157,18 +157,21 @@ function scene:createScene( event )
 
 	end
 
+	function getCol()
+		return 255,0,0;
+	end
+
 	function createBall()
 
 		display.newText('+', config.ball.x-5, config.ball.y-8, native.systemFont, 12);
 
-		bridge.ball = display.newCircle( config.ball.x, config.ball.y, 30);
-		bridge.ball:setFillColor(255,0,0);
+		bridge.ball = display.newCircle(0,0,20);
+		bridge.ball:setFillColor(getCol());
+		bridge.ball.x = config.ball.x;
+		bridge.ball.y = config.ball.y;
+		bridge.ball:setReferencePoint(display.CenterReferencePoint)
 		bridge.ball.dataName = 'ball';
-
-
-
-		--physics.addBody(bridge.ball, { friction=1, bounce=0 });		
-		--bridge.ball:applyForce( 30, -10, bridge.ball.width/2,  bridge.ball.height/2)
+		
 	end
 
 	function createTarget()
@@ -260,10 +263,7 @@ function scene:enterScene( event )
 	    	xForce = -(bridge.ball.x - config.ball.x) *2;
 	    	yForce = -(bridge.ball.y - config.ball.y) *2;
 
-	    	bridge.ball:applyForce(xForce, yForce, bridge.ball.contentWidth/2,bridge.ball.contentHeight/2)
-
-	    	local dist = math.sqrt(math.pow(event.x-config.ball.x,2)+math.pow(event.y-config.ball.y,2));
-		    print(dist);
+	    	bridge.ball:applyForce(xForce, yForce, 0, 77/2)
 		  end
 	end
 
